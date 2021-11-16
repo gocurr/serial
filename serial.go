@@ -5,13 +5,12 @@ type Range struct {
 }
 
 func Ranges(data []interface{}, continouse int, match func(interface{}) bool) (result []Range) {
-	matches := points(data, match)
-
 	// special cases
 	if continouse < 2 {
 		return
 	}
 
+	matches := points(data, match)
 	mLen := len(matches)
 	if mLen == 0 {
 		return nil
