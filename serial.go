@@ -13,12 +13,12 @@ func Ranges(data []interface{}, continouse int, match func(interface{}) bool) (r
 
 	begin := matches[0]
 	counter := 0
-	var nextM int
-	for i, m := range matches {
-		notLast := i < mLen-1
+	var nextMatch int
+	for matchIdx, dataIdx := range matches {
+		notLast := matchIdx < mLen-1
 		if notLast {
-			nextM = matches[i+1]
-			if m+1 == nextM {
+			nextMatch = matches[matchIdx+1]
+			if nextMatch == dataIdx+1 {
 				counter++
 				continue
 			}
@@ -32,7 +32,7 @@ func Ranges(data []interface{}, continouse int, match func(interface{}) bool) (r
 			})
 		}
 
-		begin = nextM
+		begin = nextMatch
 		counter = 0
 	}
 	return result
