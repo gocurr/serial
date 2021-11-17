@@ -1,4 +1,4 @@
-# Serial - continouse range tool
+# Serial - continuous range tool
 
 To download, run:
 
