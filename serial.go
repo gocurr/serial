@@ -4,9 +4,9 @@ type Range struct {
 	From, To int
 }
 
-func Ranges(data []interface{}, continouse int, match func(interface{}) bool) (result []Range) {
+func Ranges(data []interface{}, continuous int, match func(interface{}) bool) (result []Range) {
 	// special cases
-	if continouse < 2 {
+	if continuous < 2 {
 		return
 	}
 
@@ -29,11 +29,11 @@ func Ranges(data []interface{}, continouse int, match func(interface{}) bool) (r
 			}
 		}
 
-		if counter >= continouse-1 {
+		if counter >= continuous-1 {
 			// found
 			result = append(result, Range{
 				From: begin,
-				To:   begin + counter,
+				To:   dataIdx,
 			})
 		}
 
