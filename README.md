@@ -6,8 +6,6 @@ To download, run:
 go get -u github.com/gocurr/serial
 ```
 
-If it doesn't work, try to remove `go/pkg/sumdb`
-
 Import it in your program as:
 
 ```go
