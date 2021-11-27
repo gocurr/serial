@@ -15,10 +15,14 @@ func Ranges(data interface{}, continuous int, match func(interface{}) bool) (ran
 	if data == nil {
 		return
 	}
-	if reflect.TypeOf(data).Kind() != reflect.Slice {
+	if continuous < 2 {
 		return
 	}
-	if continuous < 2 {
+
+	// only Slice and Array pass through
+	switch reflect.TypeOf(data).Kind() {
+	case reflect.Slice, reflect.Array:
+	default:
 		return
 	}
 

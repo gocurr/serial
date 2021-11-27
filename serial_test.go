@@ -10,7 +10,7 @@ type V struct {
 }
 
 func TestRanges(t *testing.T) {
-	data := []interface{}{nil, 1, V{Val: 5}, V{Val: 3}}
+	data := [0]V{} //[]interface{}{nil, 1, V{Val: 5}, V{Val: 3}}
 	ranges := Ranges(data, 2, func(i interface{}) bool {
 		v, ok := i.(V)
 		if !ok {
