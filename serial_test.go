@@ -5,12 +5,18 @@ import (
 	"testing"
 )
 
-func TestRanges(t *testing.T) {
-	continuous := 2
+type V struct {
+	Val int
+}
 
-	data := []int{-2, -1, 0, 1, 2, 3, 4, 5, 5, 1, 5, 5, 3, 3, 3, 3, 4}
-	ranges := Ranges(data, continuous, func(v interface{}) bool {
-		return v.(int) > 4 && v.(int) < 6
+func TestRanges(t *testing.T) {
+	data := []interface{}{nil, 1, V{Val: 5}, V{Val: 3}}
+	ranges := Ranges(data, 2, func(i interface{}) bool {
+		v, ok := i.(V)
+		if !ok {
+			return false
+		}
+		return v.Val > 2
 	})
 	fmt.Println(ranges)
 }

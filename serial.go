@@ -12,6 +12,9 @@ type Range struct {
 // continuously more-than or equal-to continouse times
 func Ranges(data interface{}, continuous int, match func(interface{}) bool) (ranges []Range) {
 	// special cases
+	if data == nil {
+		return
+	}
 	if reflect.TypeOf(data).Kind() != reflect.Slice {
 		return
 	}
