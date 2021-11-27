@@ -23,7 +23,7 @@ func Ranges(data interface{}, continuous int, match func(interface{}) bool) (ran
 	indexs := matchIndexs(data, match)
 	l := len(indexs)
 	if l == 0 {
-		return nil
+		return
 	}
 
 	begin := indexs[0]
@@ -50,7 +50,7 @@ func Ranges(data interface{}, continuous int, match func(interface{}) bool) (ran
 		begin = nextMatch
 		counter = 0
 	}
-	return ranges
+	return
 }
 
 // matchIndexs returns int slice
