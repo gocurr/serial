@@ -17,9 +17,13 @@ It requires Go 1.11 or later due to usage of Go Modules.
 - Usage:
 
 ```go
-data := []interface{}{-2, -1, 0, 1, 2, 3, 4, 5, 6, 3, 3, 2, 3, 3, 3, 3, 4}
-ranges := serial.Ranges(data, 2, func (v interface{}) bool {
-return v.(int) > 2 && v.(int) < 5
+data := []interface{}{nil, 1, V{Val: 5}, V{Val: 3}}
+ranges := Ranges(data, 2, func(i interface{}) bool {
+    v, ok := i.(V)
+    if !ok {
+        return false
+    }
+    return v.Val > 2
 })
 fmt.Println(ranges)
 ```
