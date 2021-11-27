@@ -10,7 +10,7 @@ type Range struct {
 // Ranges returns Range-slice
 // via an interface{} object whose elements match `match` function
 // continuously more than continouse-times
-func Ranges(data interface{}, continuous int, match func(interface{}) bool) (result []Range) {
+func Ranges(data interface{}, continuous int, match func(interface{}) bool) (ranges []Range) {
 	// special cases
 	if reflect.TypeOf(data).Kind() != reflect.Slice {
 		return
@@ -19,19 +19,20 @@ func Ranges(data interface{}, continuous int, match func(interface{}) bool) (res
 		return
 	}
 
-	matches := points(data, match)
-	mLen := len(matches)
-	if mLen == 0 {
+	// indexs in data matched `match` function
+	indexs := matchIndexs(data, match)
+	l := len(indexs)
+	if l == 0 {
 		return nil
 	}
 
-	begin := matches[0]
+	begin := indexs[0]
 	counter := 0
 	var nextMatch int
-	for matchIdx, dataIdx := range matches {
-		notLast := matchIdx < mLen-1
+	for matchIdx, dataIdx := range indexs {
+		notLast := matchIdx < l-1
 		if notLast {
-			nextMatch = matches[matchIdx+1]
+			nextMatch = indexs[matchIdx+1]
 			if nextMatch == dataIdx+1 {
 				counter++
 				continue
@@ -40,7 +41,7 @@ func Ranges(data interface{}, continuous int, match func(interface{}) bool) (res
 
 		if counter >= continuous-1 {
 			// found
-			result = append(result, Range{
+			ranges = append(ranges, Range{
 				From: begin,
 				To:   dataIdx,
 			})
@@ -49,12 +50,12 @@ func Ranges(data interface{}, continuous int, match func(interface{}) bool) (res
 		begin = nextMatch
 		counter = 0
 	}
-	return result
+	return ranges
 }
 
-// matchIndex returns int slice
+// matchIndexs returns int slice
 // whose elements in target `data` slice matches `match` function
-func points(data interface{}, match func(interface{}) bool) (ints []int) {
+func matchIndexs(data interface{}, match func(interface{}) bool) (ints []int) {
 	value := reflect.ValueOf(data)
 	for i := 0; i < value.Len(); i++ {
 		element := value.Index(i)
