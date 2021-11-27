@@ -9,7 +9,7 @@ type Range struct {
 
 // Ranges returns Range-slice
 // via an interface{} object whose elements match `match` function
-// continuously more than continouse-times
+// continuously more-than or equal-to continouse times
 func Ranges(data interface{}, continuous int, match func(interface{}) bool) (ranges []Range) {
 	// special cases
 	if reflect.TypeOf(data).Kind() != reflect.Slice {
