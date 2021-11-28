@@ -17,6 +17,12 @@ It requires Go 1.11 or later due to usage of Go Modules.
 - Usage:
 
 ```go
+type V struct {
+	Val int
+}
+```
+
+```go
 data := []interface{}{nil, 1, V{Val: 5}, V{Val: 3}}
 ranges := serial.Ranges(data, 2, func(i interface{}) bool {
     v, ok := i.(V)
